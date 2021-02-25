@@ -15,8 +15,8 @@ None required, but you can modify Netdata's built-in parameter for testing frequ
 ```
 #!/bin/bash
 
-# Update frequency, in seconds. Defaults to 60.
-speedtest_update_every=60
+# Update frequency, in seconds. Defaults to 600.
+speedtest_update_every=600
 ```
 
 ## Testing

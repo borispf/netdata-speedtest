@@ -5,7 +5,9 @@ Just drop the script file into `/usr/libexec/netdata/charts.d/`, and Netdata wil
 
 ## Installation
 
-This plugin requires the [speedtest-cli](https://github.com/sivel/speedtest-cli) python project. Install with `pip install speedtest-cli`.
+This plugin requires the [speedtest.net cli](https://www.speedtest.net/apps/cli).
+
+The speedtest.net license needs to accepted once by running `sudo -u netdata speedtest`.
 
 ## Configuration
 

@@ -2,7 +2,7 @@
 
 # Netdata charts.d collector for speedtest.net internet speed test.
 # Requires installed speedtest.net cli: https://www.speedtest.net/apps/cli
-speedtest_update_every=3600
+speedtest_update_every=600
 speedtest_priority=100
 
 speedtest_check() {

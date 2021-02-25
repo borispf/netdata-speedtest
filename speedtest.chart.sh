@@ -15,7 +15,7 @@ speedtest_create() {
 	# create a chart with 2 dimensions
 	# Convert bytes per second to Mbps.
 	cat <<EOF
-CHART system.connectionspeed '' "System Connection Speed" "Mbps" "connection speed" system.connectionspeed line $((speedtest_priority + 1)) $speedtest_update_every
+CHART system.connectionspeed '' "System Connection Speed" "Mbps" "connection speed" system.connectionspeed area $((speedtest_priority + 1)) $speedtest_update_every
 DIMENSION down 'Down' absolute 8 1000000
 DIMENSION up 'Up' absolute -8 1000000
 EOF

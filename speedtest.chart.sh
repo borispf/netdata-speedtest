@@ -1,22 +1,23 @@
 #!/bin/bash
 
-# Netdata charts.d collector for fast.com internet speed test.
-# Requires installed speedtest.com cli: `pip install speedtest-cli`
-speedtest_update_every=60
+# Netdata charts.d collector for speedtest.net internet speed test.
+# Requires installed speedtest.net cli: https://www.speedtest.net/apps/cli
+speedtest_update_every=3600
 speedtest_priority=100
 
 speedtest_check() {
-  require_cmd speedtest-cli || return 1
+  require_cmd speedtest || return 1
   return 0
 }
 
 
 speedtest_create() {
 	# create a chart with 2 dimensions
+	# Convert bytes per second to Mbps.
 	cat <<EOF
 CHART system.connectionspeed '' "System Connection Speed" "Mbps" "connection speed" system.connectionspeed line $((speedtest_priority + 1)) $speedtest_update_every
-DIMENSION down 'Down' absolute 1 1000000
-DIMENSION up 'Up' absolute 1 1000000
+DIMENSION down 'Down' absolute 8 1000000
+DIMENSION up 'Up' absolute -8 1000000
 EOF
 
 	return 0
@@ -26,10 +27,10 @@ speedtest_update() {
 	# do all the work to collect / calculate the values
 	# for each dimension
 	# remember: KEEP IT SIMPLE AND SHORT
-  # Get the up and down speed. Parse them into separate values, and drop the Mbps.
-  speedtest_output=$(speedtest-cli --single --csv)
-  down=$(echo $speedtest_output | cut -d ',' -f 7 | cut -d '.' -f 1)
-  up=$(echo $speedtest_output | cut -d ',' -f 8 | cut -d '.' -f 1)
+  # Get the up and down speed in bytes per second. Parse them into separate values.
+  speedtest_output=$(speedtest --format=tsv)
+  down=$(echo $speedtest_output | cut -f 6)
+  up=$(echo $speedtest_output | cut -f 7)
 
 	# write the result of the work.
 	cat <<VALUESEOF

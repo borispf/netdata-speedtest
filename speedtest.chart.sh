@@ -29,8 +29,8 @@ speedtest_update() {
 	# remember: KEEP IT SIMPLE AND SHORT
   # Get the up and down speed in bytes per second. Parse them into separate values.
   speedtest_output=$(speedtest --format=tsv)
-  down=$(echo $speedtest_output | cut -f 6)
-  up=$(echo $speedtest_output | cut -f 7)
+  down=$(echo "${speedtest_output}" | cut -f 6)
+  up=$(echo "${speedtest_output}" | cut -f 7)
 
 	# write the result of the work.
 	cat <<VALUESEOF
